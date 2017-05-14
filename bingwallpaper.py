@@ -75,6 +75,13 @@ def set_today_wallpaper(image_dir):
     set_wallpaper(image)
 
 
+def clean_stored_images(image_dir, count):
+    image_files = os.listdir(image_dir)
+    if len(image_files) > count:
+        for image_file in image_files[0:len(image_files) - count]:
+            os.remove(image_file)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -83,11 +90,18 @@ def main():
         default=False,
         help='Set today wallpaper'
     )
+    parser.add_argument(
+        '--stored_image_count',
+        type=int,
+        default=7,
+        help='Set today wallpaper'
+    )
     image_dir = os.getenv("HOME", default=".")
     image_dir += (os.sep + ".bingwallpapers")
     FLAGS, unparsed = parser.parse_known_args()
     if not os.path.exists(image_dir):
         os.mkdir(image_dir)
+    clean_stored_images(image_dir, FLAGS.stored_image_count)
     set_random_wallpaper(image_dir)
     if FLAGS.today:
         set_today_wallpaper(image_dir)
