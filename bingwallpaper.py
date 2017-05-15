@@ -5,6 +5,7 @@ import os
 import requests
 import platform
 import subprocess
+import random
 
 import sys
 
@@ -21,11 +22,21 @@ def download_images(image_dir, image_urls):
 
 
 def set_random_wallpaper(image_dir):
-    command = "feh --recursive --randomize -F --bg-fill {}".format(image_dir)
-    p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
-    for line in p.stdout.readlines():
-        print(line)
+    system_type = platform.system()
+    system_type = system_type.lower()
+    if "linux" in system_type:
+        command = "feh --recursive --randomize -F --bg-fill {}".format(image_dir)
+        p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+        for line in p.stdout.readlines():
+            print(line)
+    elif "windows" in system_type:
+        image_files = os.listdir(image_dir)
+        r = random.SystemRandom()
+        image_path = image_files[r.randint(0, len(image_files) - 1)]
+        set_wallpaper(image_path)
+    else:
+        print("error:unknown system type {}".format(system_type))
 
 
 def set_wallpaper(image_path):
