@@ -34,7 +34,7 @@ def set_random_wallpaper(image_dir):
         image_files = os.listdir(image_dir)
         r = random.SystemRandom()
         image_path = image_files[r.randint(0, len(image_files) - 1)]
-        set_wallpaper(image_path)
+        set_wallpaper(image_dir + os.sep + image_path)
     else:
         print("error:unknown system type {}".format(system_type))
 
