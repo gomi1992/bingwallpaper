@@ -90,7 +90,7 @@ def clean_stored_images(image_dir, count):
     image_files = os.listdir(image_dir)
     if len(image_files) > count:
         for image_file in image_files[0:len(image_files) - count]:
-            os.remove(image_file)
+            os.remove(image_dir + os.sep + image_file)
 
 
 def main():
