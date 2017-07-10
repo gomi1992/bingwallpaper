@@ -9,8 +9,8 @@ import random
 
 import sys
 
-URL = "https://cn.bing.com"
-IMAGE_URL_API = "https://cn.bing.com/HPImageArchive.aspx"
+URL = "http://cn.bing.com"
+IMAGE_URL_API = "http://cn.bing.com/HPImageArchive.aspx"
 
 
 def download_images(image_dir, image_urls):
